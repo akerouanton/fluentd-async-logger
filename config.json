@@ -1,0 +1,24 @@
+
+{
+	"description": "Fluentd logging driver with reliable async mode",
+	"documentation": "https://github.com/NiR-/fluentd-async-logger",
+	"entrypoint": ["/fluentd-async-driver"],
+	"interface": {
+		"types": ["docker.logdriver/1.0"],
+		"socket": "fluentd-async.sock"
+	},
+	"env": [
+		{
+			"name": "LOG_LEVEL",
+			"description": "Minimum log level of this plugin (one of: trace, debug, info, warn, error, fatal, panic).",
+			"value": "info",
+			"settable": ["value"]
+		},
+		{
+			"name": "DEBUG",
+			"description": "Enable /pprof/trace endpoint when the value is not empty.",
+			"value": "",
+			"settable": ["value"]
+		}
+	]
+}

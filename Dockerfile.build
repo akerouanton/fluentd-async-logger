@@ -1,0 +1,18 @@
+FROM golang:1.14-alpine3.11
+WORKDIR /app
+
+COPY go.mod go.sum ./
+RUN go mod download
+
+COPY main.go ./
+COPY driver/ ./driver/
+RUN apk add --no-cache gcc git musl-dev && \
+    go build -buildmode pie \
+        -ldflags "\
+            -linkmode external \
+            -extldflags '-static' \
+            -w -s" \
+        -tags 'static_build' \
+        -o ./plugin/rootfs/fluentd-async-driver
+
+COPY config.json ./plugin/
