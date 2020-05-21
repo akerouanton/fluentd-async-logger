@@ -24,7 +24,7 @@ install: plugin
 
 .PHONY: release
 release: plugin
-	docker plugin release $(PLUGIN)
+	docker plugin push $(PLUGIN)
 
 .PHONY: lint
 lint:
