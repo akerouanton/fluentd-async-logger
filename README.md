@@ -26,6 +26,10 @@ your `/etc/docker/daemon.json` (you need to restart your daemon after that):
 }
 ```
 
+**NOTE:** If you have running containers set to use the default `log-driver`
+defined in your `daemon.json` and want to switch to `fluentd-async`, you need
+to update your `daemon.json` file and then recreate those containers.
+
 ## How to use?
 
 Once installed, you can either set it as your default logger as specified above
