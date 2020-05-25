@@ -3,6 +3,9 @@
 	"description": "Fluentd logging driver with reliable async mode",
 	"documentation": "https://github.com/NiR-/fluentd-async-logger",
 	"entrypoint": ["/fluentd-async-driver"],
+	"network": {
+		"type": "host"
+	},
 	"interface": {
 		"types": ["docker.logdriver/1.0"],
 		"socket": "fluentd-async.sock"
