@@ -35,7 +35,7 @@ With Docker:
 
 ```bash
 $ docker run \
-    --log-driver akerouanton/fluentd-async-logger:v0.1 \
+    --log-driver fluentd-async \
     --log-opt fluentd-address=tcp://1.2.3.5:24224/ \
     ...
 ```
@@ -46,7 +46,7 @@ With docker-compose:
 services:
   nginx:
     logging:
-      driver: akerouanton/fluentd-async-logger:v0.1
+      driver: fluentd-async
       options:
         fluentd-address: tcp://1.2.3.4:24224/
 ```
@@ -70,7 +70,7 @@ to `debug`. Then you can curl its UNIX socket to get traces of its goroutines
 and you can see its logs on dockerd output (generally via `journalctl`):
 
 ```bash
-$ docker plugin set akerouanton/fluentd-async-logger:v0.1 \
+$ docker plugin set fluentd-async \
     DEBUG=true \
     LOG_LEVEL=DEBUG
 $ export PLUGIN_ID=$(docker plugin ls --no-trunc | awk '/akerouanton\/fluentd-async-logger/ {print $1}')
