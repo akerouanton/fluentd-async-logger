@@ -1,4 +1,4 @@
-FROM golang:1.14-alpine3.11
+FROM golang:1.14-alpine3.11 as builder
 WORKDIR /app
 
 COPY go.mod go.sum ./
@@ -16,3 +16,9 @@ RUN apk add --no-cache gcc git musl-dev && \
         -o ./plugin/rootfs/fluentd-async-driver
 
 COPY config.json ./plugin/
+
+####################
+
+FROM builder as debug
+
+COPY --from=busybox:latest / /app/plugin/rootfs

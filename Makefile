@@ -4,10 +4,15 @@ PLUGIN := $(PLUGIN_NAME):$(PLUGIN_VERSION)
 ROOTFS := $(PWD)/plugin/rootfs/
 TMP_IMAGE := fluentd-async-logger
 TMP_CONTAINER := fluentd-async-logger-rootfs
+TARGET ?= builder
+
+.PHONY: clean
+clean:
+	rm -rf plugin/
 
 .PHONY: build
-build:
-	docker build -t $(TMP_IMAGE) -f Dockerfile.build .
+build: clean
+	docker build --target $(TARGET) -t $(TMP_IMAGE) -f Dockerfile.build .
 	-docker rm -f $(TMP_CONTAINER)
 	docker create --name $(TMP_CONTAINER) $(TMP_IMAGE)
 	docker cp $(TMP_CONTAINER):/app/plugin ./
