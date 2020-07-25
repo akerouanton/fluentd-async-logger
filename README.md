@@ -83,7 +83,7 @@ $ sudo curl -H "Content-Type: application/json" \
     --unix-socket /var/run/docker/plugins/${PLUGIN_ID}/fluentd-async.sock \
     http://foobar/pprof/trace # The dummy foobar hostname is used here because
                               # curl requires a hostname even when using unix sockets.
-$ sudo journalctl -u docker | grep ${PLUGIN_ID}
+$ sudo journalctl -xfu docker | grep ${PLUGIN_ID}
 ```
 
 ## How to work on this?

@@ -8,6 +8,7 @@ import (
 	"strconv"
 	"time"
 
+	"github.com/docker/docker/api/types/backend"
 	"github.com/docker/docker/api/types/plugins/logdriver"
 	"github.com/docker/docker/daemon/logger"
 	"github.com/docker/docker/daemon/logger/loggerutils"
@@ -84,6 +85,7 @@ func (l *fluentLogger) consumeLogs() {
 
 			logrus.WithFields(logrus.Fields{
 				"container": l.metadata.containerID,
+				"error":     err.Error(),
 			}).WithError(err).Error("error reading log message")
 
 			dec = protoio.NewUint32DelimitedReader(l.stream, binary.BigEndian, 1e6)
@@ -94,9 +96,11 @@ func (l *fluentLogger) consumeLogs() {
 		msg.Line = buf.Line
 		msg.Source = buf.Source
 		if buf.PartialLogMetadata != nil {
-			msg.PLogMetaData.ID = buf.PartialLogMetadata.Id
-			msg.PLogMetaData.Last = buf.PartialLogMetadata.Last
-			msg.PLogMetaData.Ordinal = int(buf.PartialLogMetadata.Ordinal)
+			msg.PLogMetaData = &backend.PartialLogMetaData{
+				ID:      buf.PartialLogMetadata.Id,
+				Last:    buf.PartialLogMetadata.Last,
+				Ordinal: int(buf.PartialLogMetadata.Ordinal),
+			}
 		}
 		msg.Timestamp = time.Unix(0, buf.TimeNano)
 
