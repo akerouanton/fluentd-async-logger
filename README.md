@@ -11,7 +11,7 @@ Most of the code here directly come from https://github.com/moby/moby/blob/f6a5c
 You can install this plugin with:
 
 ```
-$ docker plugin install --alias fluentd-async akerouanton/fluentd-async-logger:v0.2
+$ docker plugin install --alias fluentd-async akerouanton/fluentd-async-logger:v0.3
 ```
 
 Then you can optionally define it to be your default logging driver by updating
