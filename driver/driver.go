@@ -3,7 +3,6 @@ package driver
 import (
 	"context"
 	"fmt"
-	"math"
 	"sync"
 	"syscall"
 
@@ -11,18 +10,6 @@ import (
 	"github.com/docker/docker/daemon/logger"
 	"github.com/pkg/errors"
 	"github.com/sirupsen/logrus"
-)
-
-const (
-	defaultBufferLimit = 1024 * 1024
-	defaultHost        = "127.0.0.1"
-	defaultPort        = 24224
-	defaultProtocol    = "tcp"
-
-	// logger tries to reconnect 2**32 - 1 times
-	// failed (and panic) after 204 years [ 1.5 ** (2**32 - 1) - 1 seconds]
-	defaultMaxRetries = math.MaxInt32
-	defaultRetryWait  = 1000
 )
 
 type FluentDriver struct {
