@@ -135,12 +135,7 @@ func parseAddress(address string) (*location, error) {
 		}
 		// unix and unixgram socket
 		if url.Scheme == "unix" || url.Scheme == "unixgram" {
-			return &location{
-				protocol: url.Scheme,
-				host:     "",
-				port:     0,
-				path:     url.Path,
-			}, nil
+			return nil, errors.New("unix sockets can't be used with this plugin ; you have to switch to tcp")
 		}
 		// tcp|udp
 		protocol = url.Scheme
